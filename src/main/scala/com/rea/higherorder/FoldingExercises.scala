@@ -22,23 +22,29 @@ object FoldingExercises {
    * Good luck!
    *
    */
-  def foldLeft[A, B](initialValue: B, list: List[A])(f: (B, A) => B): B = ???
+  def foldLeft[A, B](initialValue: B, list: List[A])(f: (B, A) => B): B = list match {
+    case h :: t => foldLeft(f(initialValue, h), t)(f)
+    case Nil => initialValue
+  }
 
   /**
    * foldRight is the same as foldLeft, except it processes the list from right to left.
    */
-  def foldRight[A,B](initialValue:B, list: List[A])(f: (A,B) => B):B = ???
+  def foldRight[A,B](initialValue:B, list: List[A])(f: (A,B) => B):B = list match {
+    case h :: t => f(h, foldRight(initialValue, t)(f))
+    case Nil => initialValue
+  }
 
   /**
    * Remember these, from our recursion exercises?  They can all be implemented with either
    * foldLeft or foldRight.
    */
 
-  def sum(l: List[Int]): Int = ???
+  def sum(l: List[Int]): Int = foldLeft(0, l)((x, y) => x+y)
 
-  def length[A](x: List[A]): Int = ???
+  def length[A](x: List[A]): Int = foldLeft(0, x)((y, z) => y+1)
 
-  def map[A, B](x: List[A])(f: A => B): List[B] = ???
+  def map[A, B](x: List[A])(f: A => B): List[B] =  ???
 
   def filter[A](x: List[A], f: A => Boolean): List[A] = ???
 
